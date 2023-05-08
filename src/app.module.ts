@@ -1,15 +1,17 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
+import { PostModule } from './post/post.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
     MongooseModule.forRoot(
       'mongodb+srv://social:media@social-media.ohgm7gm.mongodb.net/',
     ),
+    PostModule,
+    UserModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
