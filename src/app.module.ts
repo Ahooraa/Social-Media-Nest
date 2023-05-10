@@ -5,9 +5,7 @@ import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      'mongodb+srv://social:media@social-media.ohgm7gm.mongodb.net/',
-    ),
+    MongooseModule.forRoot("mongodb+srv://social:media@social-media.ohgm7gm.mongodb.net/"),
     PostModule,
     UserModule,
   ],
