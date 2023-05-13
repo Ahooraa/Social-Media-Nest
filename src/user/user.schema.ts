@@ -7,16 +7,16 @@ export type UserDocument = HydratedDocument<User>;
 
 @Schema()
 export class User {
-  @Prop({required: true,})
+  @Prop({ required: true })
   email: string;
 
-  @Prop({required: true,unique :true})
+  @Prop({ required: true, unique: true })
   username: string;
 
-  @Prop({required: true,})
+  @Prop({ required: true })
   password: string;
 
-  @Prop({required: false, unique:true })
+  @Prop({ required: false, unique: true })
   phoneNumber: string;
 
   @Prop(UserRole)
@@ -25,10 +25,10 @@ export class User {
   @Prop()
   profilePic: string;
 
-  @Prop({required: false,})
+  @Prop({ required: false })
   description: string;
 
-  @Prop({required: true,})
+  @Prop({ required: true })
   city: string;
 
   @Prop({ type: [String], default: [] })
@@ -36,9 +36,7 @@ export class User {
 
   @Prop({ type: [String], default: [] })
   followings: string[];
-
 }
-
 
 export const UserSchema = SchemaFactory.createForClass(User);
 
