@@ -4,7 +4,7 @@ import { User } from '../user/user.schema';
 
 export type PostDocument = HydratedDocument<Post>;
 
-@Schema({ _id: false })
+@Schema()
 class Comment {
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
   userId!: User;
@@ -22,16 +22,13 @@ export class Post {
   text: string;
 
   @Prop({ required: true })
-  image!: Buffer;
+  image!: string;
 
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] })
   liked: User[];
 
   @Prop([Comment])
   comment: Comment[];
-
-  // @Prop()
-  // save: string;
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);
