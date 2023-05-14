@@ -2,10 +2,11 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
 import { UserRole } from './user.enum';
 import * as bcrypt from 'bcrypt';
+import { Post } from 'src/post/post.schema';
 
 export type UserDocument = HydratedDocument<User>;
 
-@Schema()
+@Schema({ timestamps: true })
 export class User {
   @Prop({ required: true })
   email: string;
@@ -36,6 +37,15 @@ export class User {
 
   @Prop({ type: [String], default: [] })
   followings: string[];
+
+  @Prop({ type: [Post], default: [] })
+  posts: Post[];
+
+  @Prop({ default: Date.now })
+  createdAt!: Date;
+
+  @Prop({ default: Date.now })
+  updatedAt!: Date;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);
