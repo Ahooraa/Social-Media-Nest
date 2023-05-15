@@ -1,16 +1,9 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Patch,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Delete, Patch } from '@nestjs/common';
 import { PostService } from './post.service';
 import { CreatePostDto, UpdatePostDto } from './post.dto';
+import { Comment } from './post.schema';
 
-@Controller('post')
+@Controller('api/post')
 export class PostController {
   constructor(private readonly postService: PostService) {}
   @Post('newpost')
@@ -38,4 +31,29 @@ export class PostController {
   getAllPost() {
     return this.postService.getAllPost();
   }
+
+  @Post('addLike/:id')
+  async addLike(@Body() {userId}, @Param("id") id: string) : Promise<any>{
+    console.log("+++++++++++++", id, userId);
+    
+    return await this.postService.addLike(id, userId);
+  }
+
+  @Get('getLike/:id')
+  async getLike(@Param("id") id: string) : Promise<any>{
+    return await this.postService.getLike(id);
+  }
+
+
+  @Post('addComment/:id')
+  async addComment(@Param("id") id : string, @Body() comment:Comment): Promise<any>{
+    return await this.postService.addComment(id, comment);
+  }
+
+
+  @Get('getComment/:id')
+  async getComment(@Param("id") id : string){
+    return await this.postService.getComment(id);
+  }
+
 }
