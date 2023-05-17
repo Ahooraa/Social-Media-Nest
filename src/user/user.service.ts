@@ -28,7 +28,7 @@ export class UserService {
 
   async getSingleUser(userId: string): Promise<User> {
     try {
-      const user = await this.findUser(userId);
+      const user = await this.findUserById(userId);
       return user;
     } catch (error) {
       throw new Error(error.message);
@@ -52,7 +52,33 @@ export class UserService {
     }
   }
 
-  private async findUser(userId): Promise<User> {
+  // async followUser(userId: string) Promise<User>{
+  //   try {
+
+  //   } catch (error) {
+  //     throw new Error(error.message);
+  //   }
+  // }
+
+  async findUserByUsername(username: string): Promise<any> {
+    let user;
+
+    try {
+      user = await this.User.findOne({ username: username }).exec();
+    } catch (error) {
+      throw new NotFoundException('user not found');
+    }
+    if (!user) {
+      throw new NotFoundException('user not found');
+    }
+    console.log(user.id);
+    console.log(typeof user.id);
+    
+
+    return user;
+  }
+
+  async findUserById(userId): Promise<User> {
     let user;
     try {
       user = await this.User.findById(userId).exec();
