@@ -56,3 +56,14 @@ export class UpdateUserDto {
   profilePic: string;
 }
 
+export class loginDto {
+  @IsNotEmpty()
+  @IsString()
+  username: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @MinLength(5)
+  password: string;
+}
+

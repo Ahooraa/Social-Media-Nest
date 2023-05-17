@@ -7,7 +7,7 @@ import { Post } from 'src/post/post.schema';
 export type UserDocument = HydratedDocument<User>;
 
 @Schema({ timestamps: true })
-export class User {
+export class User { 
   @Prop({ required: true, unique: true })
   email: string;
 
