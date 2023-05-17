@@ -1,7 +1,12 @@
-import { IsOptional, IsString, IsNotEmpty, IsArray } from 'class-validator';
+import { IsOptional, IsString, IsNotEmpty, IsArray, isString, isNotEmpty } from 'class-validator';
 import { User } from '../user/user.schema';
+import {Comment} from './post.schema'
 
 export class CreatePostDto {
+  @IsString()
+  @IsNotEmpty()
+  title!:string;
+
   @IsString()
   @IsNotEmpty()
   userId!: string;
@@ -16,11 +21,11 @@ export class CreatePostDto {
 
   @IsArray()
   @IsOptional()
-  liked: User[];
+  liked: string[];
 
   @IsArray()
   @IsOptional()
-  comment: User[];
+  comment: Comment[];
 }
 
 export class UpdatePostDto {
@@ -38,9 +43,9 @@ export class UpdatePostDto {
 
   @IsOptional()
   @IsArray()
-  liked: User[];
+  liked: string[];
 
   @IsOptional()
   @IsArray()
-  comment: User[];
+  comment: Comment[];
 }

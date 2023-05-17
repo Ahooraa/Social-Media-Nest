@@ -18,7 +18,7 @@ export class UserService {
       throw new Error(error.message);
     }
   }
-  async updateUser(userId: string, userData: UpdateUserDto): Promise<User> {
+  async updateUser(userId, userData: UpdateUserDto): Promise<User> {
     try {
       return await this.User.findByIdAndUpdate(userId, userData);
     } catch (error) {
@@ -92,4 +92,5 @@ export class UserService {
 
     return user;
   }
+  
 }
