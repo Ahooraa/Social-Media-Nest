@@ -5,19 +5,19 @@ export type PostDocument = HydratedDocument<Post>;
 
 @Schema({ _id: true })
 export class Comment {
-  @Prop({required: true })
+  @Prop({ required: true })
   userId!: string;
 
-  @Prop({required : true})
+  @Prop({ required: true })
   comment!: string;
 }
 
 @Schema({ timestamps: true })
 export class Post {
-  @Prop({unique: true, required: true})
+  @Prop({ unique: true, required: true })
   title: string;
 
-  @Prop({required: true})
+  @Prop({ required: true })
   userId: string;
 
   @Prop()
@@ -31,9 +31,6 @@ export class Post {
 
   @Prop([Comment])
   comment: Comment[];
-
-  // @Prop()
-  // save: string;
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);
