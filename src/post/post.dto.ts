@@ -1,19 +1,27 @@
-import { IsOptional, IsString, IsNotEmpty, IsArray, isString, isNotEmpty } from 'class-validator';
+import {
+  IsOptional,
+  IsString,
+  IsNotEmpty,
+  IsArray,
+  isString,
+  isNotEmpty,
+} from 'class-validator';
+import mongoose, { ObjectId } from 'mongoose';
 import { User } from '../user/user.schema';
-import {Comment} from './post.schema'
+import { Comment } from './post.schema';
 
 export class CreatePostDto {
   @IsString()
   @IsNotEmpty()
-  title!:string;
+  title!: string;
 
-  @IsString()
+  // @IsString()
   @IsNotEmpty()
-  userId!: string;
+  userId!: ObjectId;
 
-  @IsString()
+  // @isBuffer()
   @IsNotEmpty()
-  image!: string;
+  image!: Buffer;
 
   @IsString()
   @IsOptional()
