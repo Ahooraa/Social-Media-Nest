@@ -12,21 +12,24 @@ import { CreateUserDto, loginDto } from '../user/user.dto';
 import { UserService } from '../user/user.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { Public } from './auth.public';
 
-@Controller('api/auth')
+@Controller('auth')
 export class AuthController {
   constructor(
     private readonly userService: UserService,
     private readonly jwtService: JwtService,
   ) {}
 
+  @Public()
   @Post('signup')
   async createUser(@Body() userData: CreateUserDto) {
     console.log(userData);
     return await this.userService.createUser(userData);
   }
 
-  @Post('login')
+  @Public()
+  @Post('signin')
   async login(@Body() body: loginDto): Promise<{ access_token: string }> {
     const user = await this.userService.findUserByUsername(body.username);
     console.log(user);
