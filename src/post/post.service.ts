@@ -10,6 +10,7 @@ export class PostService {
 
   async createPost(body: CreatePostDto): Promise<Post> {
     const post = await this.Post.create(body);
+    console.log(body.userId);
     return post;
   }
 
@@ -81,13 +82,39 @@ export class PostService {
 
     if (!post) return "Post doesn't exist";
     if (!post.comment.includes(commentId)) return "comment doesn't exist";
-    const resualt = await this.Post.findByIdAndUpdate(
+    const resault = await this.Post.findByIdAndUpdate(
       postId,
       {
         $pull: { comment: { _id: commentId } },
       },
       { new: true },
     );
-    return resualt;
+    return resault;
+  }
+
+  async getUserFromPost(postId: string): Promise<any> {
+    const post = await this.Post.aggregate([
+      {
+        $match: { _id: new mongoose.Types.ObjectId(postId) },
+      },
+      {
+        $project: {
+          userId: { $toObjectId: '$userId' },
+        },
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'userId',
+          foreignField: '_id',
+          as: 'creator',
+        },
+      },
+      { $unset: ['_id', 'userId'] },
+      {
+        $unwind: '$creator',
+      },
+    ]);
+    return post;
   }
 }

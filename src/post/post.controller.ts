@@ -69,4 +69,9 @@ export class PostController {
   async deleteComment(@Param('id') commentId: Comment, @Body() Body: any) {
     return await this.postService.deleteComment(commentId, Body.postId);
   }
+
+  @Get(':id/userFromPost')
+  async getUserFromPost(@Param('id') postId: string) {
+    return await this.postService.getUserFromPost(postId);
+  }
 }

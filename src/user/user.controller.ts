@@ -7,22 +7,23 @@ import {
   Patch,
   Delete,
   UnauthorizedException,
+  UseGuards,
 } from '@nestjs/common';
 import { CreateUserDto, loginDto } from './user.dto';
 import { UserService } from './user.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { User } from './user.schema';
+import { AuthGuard } from 'src/auth/auth.guard';
 
-@Controller('api/user')
+@Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService, ) {}
-
-  
+  constructor(private readonly userService: UserService) {}
 
   @Get('username/:username')
-  async getUserWithUsername(@Param('username') username: string): Promise<User> {
-    
+  async getUserWithUsername(
+    @Param('username') username: string,
+  ): Promise<User> {
     return await this.userService.findUserByUsername(username);
   }
 

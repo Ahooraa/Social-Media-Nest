@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument } from 'mongoose';
+import mongoose, { HydratedDocument, ObjectId } from 'mongoose';
 
 export type PostDocument = HydratedDocument<Post>;
 
@@ -17,8 +17,8 @@ export class Post {
   @Prop({ unique: true, required: true })
   title: string;
 
-  @Prop({ required: true })
-  userId: string;
+  @Prop({ type: mongoose.Types.ObjectId, required: true })
+  userId: ObjectId;
 
   @Prop()
   text: string;

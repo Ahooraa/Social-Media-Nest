@@ -32,7 +32,7 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   @IsString()
-  city:string
+  city: string;
 
   @IsOptional()
   @IsString()
@@ -66,4 +66,3 @@ export class loginDto {
   @MinLength(5)
   password: string;
 }
-
